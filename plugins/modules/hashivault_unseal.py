@@ -29,7 +29,7 @@ EXAMPLES = '''
 
 def main():
     argspec = hashivault_argspec()
-    argspec['keys'] = dict(required=True, type='str', no_log=True)
+    argspec['keys'] = dict(required=True, type='list', no_log=True)
     module = hashivault_init(argspec)
     result = hashivault_unseal(module.params)
     if result.get('failed'):
@@ -43,7 +43,7 @@ def hashivault_unseal(params):
     keys = params.get('keys')
     client = hashivault_client(params)
     if client.sys.is_sealed():
-        return {'status': client.sys.submit_unseal_keys(keys.split()), 'changed': True}
+        return {'status': client.sys.submit_unseal_keys(keys), 'changed': True}
     else:
         return {'changed': False}
 
