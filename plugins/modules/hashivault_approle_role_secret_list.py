@@ -56,7 +56,7 @@ def hashivault_approle_role_secret_list(params):
     except InvalidPath:
         return {'secrets': []}
     secrets = secrets.get('data', {}).get('keys', [])
-    return {'secrets': str(secrets)}
+    return {'secrets': list(secrets)}
 
 
 if __name__ == '__main__':
